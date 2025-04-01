@@ -2,11 +2,11 @@ package app.service;
 
 import app.model.InboxMessage;
 import app.repository.InboxMessageRepository;
-import app.web.dto.MessageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,19 +19,11 @@ public class InboxMessageService {
         this.inboxMessageRepository = inboxMessageRepository;
     }
 
-    public InboxMessage saveMessage(MessageRequest messageRequest) {
+    public List<InboxMessage> getMessagesForUser(UUID userId) {
+        return inboxMessageRepository.findByUserId(userId);
+    }
 
-        UUID userId = messageRequest.getUserId();
-
-        InboxMessage inboxMessage = InboxMessage.builder()
-                .userId(userId)
-                .header(messageRequest.getHeader())
-                .content(messageRequest.getContent())
-                .sentOn(LocalDateTime.now())
-                .build();
-
+    public void saveMessage(InboxMessage inboxMessage) {
         inboxMessageRepository.save(inboxMessage);
-
-        return inboxMessage;
     }
 }
