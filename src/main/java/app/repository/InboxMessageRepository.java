@@ -1,6 +1,6 @@
-package app.inboxmessages.repository;
+package app.repository;
 
-import app.inboxmessages.model.InboxMessage;
+import app.model.InboxMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
