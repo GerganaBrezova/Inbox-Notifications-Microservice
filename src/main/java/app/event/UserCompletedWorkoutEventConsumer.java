@@ -1,7 +1,6 @@
 package app.event;
 
 import app.event.payload.UserCompletedWorkoutEvent;
-import app.event.payload.UserRegisteredEvent;
 import app.model.InboxMessage;
 import app.service.InboxMessageService;
 import lombok.extern.slf4j.Slf4j;
