@@ -3,6 +3,8 @@ package app.web;
 import app.model.InboxMessage;
 import app.service.InboxMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +22,10 @@ public class InboxMessageController {
     }
 
     @GetMapping("/{userId}")
-    public List<InboxMessage> getInboxMessages(@PathVariable UUID userId) {
-        return inboxMessageService.getMessagesForUser(userId);
+    public ResponseEntity<List<InboxMessage>> getInboxMessages(@PathVariable UUID userId) {
+
+        List<InboxMessage> inboxMessages = inboxMessageService.getMessagesForUser(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(inboxMessages);
     }
 }
