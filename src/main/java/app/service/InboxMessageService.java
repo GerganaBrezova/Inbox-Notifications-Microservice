@@ -5,8 +5,10 @@ import app.repository.InboxMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class InboxMessageService {
@@ -19,7 +21,9 @@ public class InboxMessageService {
     }
 
     public List<InboxMessage> getMessagesForUser(UUID userId) {
-        return inboxMessageRepository.findByUserId(userId);
+        return inboxMessageRepository.findByUserId(userId).stream()
+                .sorted(Comparator.comparing(InboxMessage::getSentOn).reversed())
+                .collect(Collectors.toList());
     }
 
     public void saveMessage(InboxMessage inboxMessage) {
